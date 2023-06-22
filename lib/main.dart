@@ -211,8 +211,8 @@ class _MyHomePageState extends State<MyHomePage> {
     currentMonth = formattedTime;
 
     setState(() {
-      month=monthEnd;
-      year=yearEnd;
+      month = monthEnd;
+      year = yearEnd;
       currentMonth;
       currentYear;
       endDate = date.day.toInt();
@@ -500,19 +500,42 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Column(
                             children: [
                               Container(
-                                width: 240,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                ),
-                                child: Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: Text(
-                                      "${yearList[0]}-${yearList[yearList.length - 1]}",
-                                      textAlign: TextAlign.center,
-                                    )),
-                              ),
+                                  width: 300,
+                                  decoration: ShapeDecoration(
+                                    //color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5)),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      //REVERSED
+                                      IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            openAlertDialog(currentMonth, yearList[0].toString(), 1);
+                                          },
+                                          icon: Icon(
+                                            Icons.arrow_left_rounded,
+                                          )),
+                                      Padding(
+                                          padding: EdgeInsets.all(15),
+                                          child: Text(
+                                            "${yearList[0]}-${yearList[yearList.length - 1]}",
+                                            textAlign: TextAlign.center,
+                                          )),
+                                      //FORWARD
+                                      IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            openAlertDialog(currentMonth, yearList[yearList.length-1].toString(), 1);
+                                          },
+                                          icon: Icon(
+                                            Icons.arrow_right_rounded,
+                                          )),
+                                    ],
+                                  )),
 
                               //YEAR
                               Wrap(
