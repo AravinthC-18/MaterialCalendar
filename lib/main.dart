@@ -108,52 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            //WEEK AND MONTH
-            SizedBox(
-              width: sizeBox,
-              child: Card(
-                color: Colors.white,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
-                child: Row(children: [
-                  //WEEK
-                  SizedBox(
-                    width: sizeBox1,
-                    child: Card(
-                      color: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25))),
-                      child: Padding(
-                          padding: EdgeInsets.all(15),
-                          child: Text(
-                            "Week",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.black),
-                          )),
-                    ),
-                  ),
-                  //MONTH
-                  SizedBox(
-                      width: sizeBox1,
-                      child: Card(
-                        color: Color(0xff0074B7),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(25))),
-                        child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Text(
-                              "Month",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      )),
-                ]),
-              ),
-            ),
             //MONTH AND YEAR
             SizedBox(
               width: sizeBox,
@@ -522,7 +476,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                       onTap: () {
                                         Navigator.pop(context);
-                                        GetEndDate(i + 1, int.parse(currentYear));
+                                        GetEndDate(
+                                            i + 1, int.parse(currentYear));
                                       },
                                     )
                                   ]
@@ -548,6 +503,21 @@ class _MyHomePageState extends State<MyHomePage> {
                           width: 350,
                           child: Column(
                             children: [
+                              Container(
+                                width: 240,
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                ),
+                                child: Padding(
+                                    padding: EdgeInsets.all(15),
+                                    child: Text(
+                                      "${yearList[0]}-${yearList[yearList.length - 1]}",
+                                      textAlign: TextAlign.center,
+                                    )),
+                              ),
+
                               //YEAR
                               Wrap(
                                 crossAxisAlignment: WrapCrossAlignment.center,
@@ -569,7 +539,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               yearList[i].toString(),
                                               style: TextStyle(
                                                   color:
-                                                  yearList[i].toString() ==
+                                                      yearList[i].toString() ==
                                                               currentYear
                                                           ? Colors.white
                                                           : Colors.black),
@@ -588,8 +558,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                         }
                                         Navigator.pop(context);
                                         Navigator.pop(context);
-                                        openAlertDialog(currentMonth, yearList[i].toString(), 0);
-                                        GetEndDate(month, int.parse(yearList[i].toString()));
+                                        openAlertDialog(currentMonth,
+                                            yearList[i].toString(), 0);
+                                        GetEndDate(month,
+                                            int.parse(yearList[i].toString()));
                                       },
                                     )
                                   ]
