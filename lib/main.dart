@@ -187,18 +187,18 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  GetEndDate(int month, int year) {
+  GetEndDate(int monthEnd, int yearEnd) {
     /*setState(() {
-      currentMonth = DateFormat("MMM").format();
+      currentmonthEnd = DateFormat("MMM").format();
       currentYear = DateFormat("yyyy").format(today);
     });*/
-    var date = DateTime(year, month + 1, 0);
+    var date = DateTime(yearEnd, monthEnd + 1, 0);
     String formattedTime = DateFormat("MMM").format(date);
     String findYear = DateFormat('yyyy').format(date);
     print(date);
     print(findYear);
     currentYear = findYear;
-    var date1 = DateTime(year, month, 1);
+    var date1 = DateTime(yearEnd, monthEnd, 1);
     print(date1);
     String weekDays = DateFormat("EEE").format(date1);
     print(weekDays);
@@ -211,6 +211,8 @@ class _MyHomePageState extends State<MyHomePage> {
     currentMonth = formattedTime;
 
     setState(() {
+      month=monthEnd;
+      year=yearEnd;
       currentMonth;
       currentYear;
       endDate = date.day.toInt();
