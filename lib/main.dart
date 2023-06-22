@@ -361,6 +361,7 @@ class _MyHomePageState extends State<MyHomePage> {
       visible: day.isEmpty ? false : isTrue,
       maintainAnimation: true,
       maintainState: true,
+      maintainSize: true,
       child: Padding(
         padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
         child: Icon(Icons.circle_rounded,
@@ -387,6 +388,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Visibility(
       maintainAnimation: true,
       maintainState: true,
+      maintainSize: true,
       visible: time.isEmpty ? false : isTrue,
       child: Padding(
         padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
