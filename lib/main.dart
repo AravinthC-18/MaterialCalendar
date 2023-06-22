@@ -49,6 +49,20 @@ class _MyHomePageState extends State<MyHomePage> {
     "Fri",
     "Sat"
   ];
+  late List<String> monthList = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
   late double sizeBox = 510;
   late double sizeBox1 = 250;
   late DateTime today;
@@ -163,13 +177,18 @@ class _MyHomePageState extends State<MyHomePage> {
                               Icons.arrow_left_rounded,
                             )),
 
-                        Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Text(
-                              "$currentMonth $currentYear",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.black),
-                            )),
+                        InkWell(
+                          child: Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Text(
+                                "$currentMonth $currentYear",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.black),
+                              )),
+                          onTap: () {
+                            openAlertDialog(currentMonth, currentYear);
+                          },
+                        ),
 
                         //FORWARD
                         IconButton(
@@ -220,7 +239,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void GetEndDate(int month, int year) {
+  GetEndDate(int month, int year) {
     /*setState(() {
       currentMonth = DateFormat("MMM").format();
       currentYear = DateFormat("yyyy").format(today);
@@ -287,7 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void GetMap(int endDate, int startPosition) {
+  GetMap(int endDate, int startPosition) {
     print("GetMap");
     hasMap = {};
     List<DateList> dateList = [];
@@ -424,5 +443,56 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400)),
       ),
     );
+  }
+
+  void openAlertDialog(String currentMonth, String currentYear) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) {
+          return Theme(
+              data: ThemeData(backgroundColor: Color(0xffEBEFF3)),
+              child: AlertDialog(
+                backgroundColor: const Color(0xffEBEFF3),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    side: BorderSide(color: Colors.white)),
+                actions: [
+                  SizedBox(
+                    width: 250,
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        for (int i = 0; i < monthList.length; i++) ...[
+                          InkWell(
+                            child: Card(
+                              elevation: 0,
+                              color: monthList[i].toString() == currentMonth
+                                  ? Color(0xff0074B7)
+                                  : Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                  padding: EdgeInsets.all(15),
+                                  child: Text(
+                                    monthList[i].toString(),
+                                    style: TextStyle(
+                                        color: monthList[i].toString() ==
+                                                currentMonth
+                                            ? Colors.white
+                                            : Colors.black),
+                                  )),
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                              GetEndDate(i + 1, year);
+                            },
+                          )
+                        ]
+                      ],
+                    ),
+                  )
+                ],
+              ));
+        });
   }
 }
