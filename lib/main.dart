@@ -93,13 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.white,
           title: Row(
             children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    color: Colors.black,
-                  )),
-              Text("Time Tracking",
+              Text("Material Calendar",
                   style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.w700)),
             ],
