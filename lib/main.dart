@@ -186,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 style: TextStyle(color: Colors.black),
                               )),
                           onTap: () {
-                            openAlertDialog(currentMonth, currentYear);
+                            openAlertDialog(currentMonth, currentYear, 0);
                           },
                         ),
 
@@ -246,9 +246,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });*/
     var date = DateTime(year, month + 1, 0);
     String formattedTime = DateFormat("MMM").format(date);
-    String findDate = DateFormat('yyyy').format(date);
+    String findYear = DateFormat('yyyy').format(date);
     print(date);
-    currentYear = findDate;
+    print(findYear);
+    currentYear = findYear;
     var date1 = DateTime(year, month, 1);
     print(date1);
     String weekDays = DateFormat("EEE").format(date1);
@@ -445,54 +446,159 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void openAlertDialog(String currentMonth, String currentYear) {
-    showDialog<String>(
-        context: context,
-        builder: (BuildContext context) {
-          return Theme(
-              data: ThemeData(backgroundColor: Color(0xffEBEFF3)),
-              child: AlertDialog(
-                backgroundColor: const Color(0xffEBEFF3),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    side: BorderSide(color: Colors.white)),
-                actions: [
-                  SizedBox(
-                    width: 250,
-                    child: Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        for (int i = 0; i < monthList.length; i++) ...[
-                          InkWell(
-                            child: Card(
-                              elevation: 0,
-                              color: monthList[i].toString() == currentMonth
-                                  ? Color(0xff0074B7)
-                                  : Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Padding(
-                                  padding: EdgeInsets.all(15),
-                                  child: Text(
-                                    monthList[i].toString(),
-                                    style: TextStyle(
+  void openAlertDialog(String currentMonth, String currentYear, int n) {
+    List<int> yearList = [];
+    for (int i = int.parse(currentYear) - 8;
+        i < int.parse(currentYear) + 8;
+        i++) {
+      yearList.add(i);
+    }
+
+    n == 0
+        ? showDialog<String>(
+            context: context,
+            builder: (BuildContext context) {
+              return Theme(
+                  data: ThemeData(backgroundColor: Color(0xffEBEFF3)),
+                  child: AlertDialog(
+                    backgroundColor: const Color(0xffEBEFF3),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        side: BorderSide(color: Colors.white)),
+                    actions: [
+                      SizedBox(
+                          width: 250,
+                          child: Column(
+                            children: [
+                              //YEAR
+                              InkWell(
+                                child: Container(
+                                  width: 240,
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5)),
+                                  ),
+                                  child: Padding(
+                                      padding: EdgeInsets.all(15),
+                                      child: Text(
+                                        currentYear,
+                                        textAlign: TextAlign.center,
+                                      )),
+                                ),
+                                onTap: () {
+                                  openAlertDialog(currentMonth, currentYear, 1);
+                                },
+                              ),
+
+                              //MONTH
+                              Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  for (int i = 0;
+                                      i < monthList.length;
+                                      i++) ...[
+                                    InkWell(
+                                      child: Card(
+                                        elevation: 0,
                                         color: monthList[i].toString() ==
                                                 currentMonth
-                                            ? Colors.white
-                                            : Colors.black),
-                                  )),
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
-                              GetEndDate(i + 1, year);
-                            },
-                          )
-                        ]
-                      ],
-                    ),
-                  )
-                ],
-              ));
-        });
+                                            ? Color(0xff0074B7)
+                                            : Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Padding(
+                                            padding: EdgeInsets.all(15),
+                                            child: Text(
+                                              monthList[i].toString(),
+                                              style: TextStyle(
+                                                  color:
+                                                      monthList[i].toString() ==
+                                                              currentMonth
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                            )),
+                                      ),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                        GetEndDate(i + 1, int.parse(currentYear));
+                                      },
+                                    )
+                                  ]
+                                ],
+                              ),
+                            ],
+                          ))
+                    ],
+                  ));
+            })
+        : showDialog<String>(
+            context: context,
+            builder: (BuildContext context) {
+              return Theme(
+                  data: ThemeData(backgroundColor: Color(0xffEBEFF3)),
+                  child: AlertDialog(
+                    backgroundColor: const Color(0xffEBEFF3),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        side: BorderSide(color: Colors.white)),
+                    actions: [
+                      SizedBox(
+                          width: 350,
+                          child: Column(
+                            children: [
+                              //YEAR
+                              Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.center,
+                                children: [
+                                  for (int i = 0; i < yearList.length; i++) ...[
+                                    InkWell(
+                                      child: Card(
+                                        elevation: 0,
+                                        color: yearList[i].toString() ==
+                                                currentYear
+                                            ? Color(0xff0074B7)
+                                            : Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Padding(
+                                            padding: EdgeInsets.all(15),
+                                            child: Text(
+                                              yearList[i].toString(),
+                                              style: TextStyle(
+                                                  color:
+                                                  yearList[i].toString() ==
+                                                              currentYear
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                            )),
+                                      ),
+                                      onTap: () {
+                                        int month = 0;
+                                        for (int i = 0;
+                                            i < monthList.length;
+                                            i++) {
+                                          if (currentMonth ==
+                                              monthList[i].toString()) {
+                                            month = i + 1;
+                                            break;
+                                          }
+                                        }
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                        openAlertDialog(currentMonth, yearList[i].toString(), 0);
+                                        GetEndDate(month, int.parse(yearList[i].toString()));
+                                      },
+                                    )
+                                  ]
+                                ],
+                              ),
+                            ],
+                          ))
+                    ],
+                  ));
+            });
   }
 }
