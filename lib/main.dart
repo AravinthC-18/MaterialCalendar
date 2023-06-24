@@ -3,10 +3,6 @@ import "package:intl/intl.dart";
 
 import "DateList.dart";
 
-void main() {
-  runApp(MyApp());
-}
-
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 

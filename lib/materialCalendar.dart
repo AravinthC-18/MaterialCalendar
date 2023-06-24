@@ -16,7 +16,7 @@ class materialCalendar extends StatelessWidget {
       title: "Flutter Demo",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.dark(background: Color(0xff0074B7)),
+        colorScheme: ColorScheme.light(background: Color(0xff0074B7)),
         useMaterial3: true,
       ),
       home: MyHomePage(title: "Flutter Demo Home Page"),
@@ -39,7 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
   late int startPosition = 0;
   late int endDate;
   late Map<int, dynamic> hasMap = {};
-  late List<DateList> dateList = [];
+  late List<String>str=[];
+  //late List<DateList> dateList = [];
   late List<String> weekList = [
     "Sun",
     "Mon",
@@ -247,7 +248,7 @@ class _MyHomePageState extends State<MyHomePage> {
     GetMap(endDate, startPosition);
   }
 
-  TableRowList(int i) {
+  /*TableRowList(int i) {
     dateList = hasMap[i];
 
     return Container(
@@ -281,34 +282,76 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }*/
+  TableRowList(int i) {
+    str = hasMap[i];
+
+    return Container(
+      child: Table(
+        children: [
+          TableRow(children: [
+            for (int j = 0; j < str.length; j++) ...[
+              Column(
+                children: [
+                  //DATE
+                  //CheckCurrenDate(dateList[j].day.toString()),
+                  CheckCurrenDate(str[j].toString()),
+
+                  /*Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      //EVENT
+                      CheckCurrentEvent(
+                          dateList[j].day.toString(),
+                          dateList[j].event.toString(),
+                          dateList[j].time.toString()),
+                      //TIME
+                      CheckCurrentTime(dateList[j].day.toString(),
+                          dateList[j].time.toString()),
+                    ],
+                  )*/
+                ],
+              )
+            ]
+          ])
+        ],
+      ),
+    );
   }
 
   GetMap(int endDate, int startPosition) {
     print("GetMap");
     hasMap = {};
-    List<DateList> dateList = [];
+    //List<DateList> dateList = [];
+    List<String> str=[];
     int n = 1;
     print(startPosition);
     for (int i = 1; i <= (endDate / 6) + 1; i++) {
-      dateList = [];
+      str = [];
       int m = 1;
       for (int j = n; j <= (i == 1 ? 1 : 6 + n); j++) {
         if (i == 1) {
           for (int k = 0; k < 7; k++) {
             if (k < startPosition) {
-              DateList list = DateList("", "", "");
-              dateList.add(list);
+             // DateList list = DateList("", "", "");
+              //dateList.add(list);
+              str.add("");
             } else {
-              var date1 = DateTime(year, month, m);
+              /*var date1 = DateTime(year, month, m);
               String weekDays = DateFormat("EEE").format(date1);
               DateList list = DateList(m.toString(), "",
                   weekDays == "Sat" || weekDays == "Sun" ? "" : "9:15");
-              dateList.add(list);
+              dateList.add(list);*/
+              str.add(m.toString());
+
               m += 1;
             }
           }
         } else {
-          if (j == 7 || j == 5 || j == 17 || j == 25) {
+          str.add(endDate >= j ? j.toString() : "");
+
+          /* if (j == 7 || j == 5 || j == 17 || j == 25) {
             DateList list = DateList(endDate >= j ? j.toString() : "",
                 j == 7 || j == 17 || j == 25 ? "LOP" : "CL", "");
             dateList.add(list);
@@ -318,10 +361,10 @@ class _MyHomePageState extends State<MyHomePage> {
             DateList list = DateList(endDate >= j ? j.toString() : "", "",
                 weekDays == "Sat" || weekDays == "Sun" ? "" : "9:20");
             dateList.add(list);
-          }
+          }*/
         }
 
-        hasMap[i] = dateList;
+        hasMap[i] = str;
       }
       n += i == 1 ? m - 1 : 7;
     }
@@ -331,11 +374,11 @@ class _MyHomePageState extends State<MyHomePage> {
     print("Length" + hasMap.length.toString());
   }
 
-  TextDayColor(int j) {
-    var date1 = DateTime(year, month, j);
-    String weekDays = DateFormat('EEE').format(date1);
-    return weekDays == "Sat" || weekDays == "Sun" ? Colors.black : Colors.black;
-  }
+    TextDayColor(int j) {
+      var date1 = DateTime(year, month, j);
+      String weekDays = DateFormat('EEE').format(date1);
+      return weekDays == "Sat" || weekDays == "Sun" ? Colors.black : Colors.black;
+    }
 
   CheckCurrenDate(String day) {
     String findMonth = DateFormat('MMM').format(today);
