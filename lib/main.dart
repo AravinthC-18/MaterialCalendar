@@ -2,7 +2,12 @@ import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 
 import "DateList.dart";
-
+void main() async {
+  //SHOW LAYOUT SIZE
+  //debugPaintSizeEnabled = true;
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
+}
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
